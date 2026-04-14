@@ -1,0 +1,22 @@
+# OpenFang Agent OS configuration
+# See https://github.com/RightNow-AI/openfang for documentation
+
+api_listen = "127.0.0.1:4200"
+
+[default_model]
+provider = "gemini"
+model = "gemini-2.5-flash"
+api_key_env = "GEMINI_API_KEY"
+
+[memory]
+decay_rate = 0.05
+
+
+[[mcp_servers]
+name = "Monitor
+timeout_secs = 30
+
+[mcp_servers.transport]
+type = "stdio"
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem", "C:\users\gayat\monitor_service.py"]

@@ -1,0 +1,9 @@
+[default_model]
+provider = "mistral"                # Must be "gemini"
+model = "mistral-small-latest"         # Example model identifier
+#api_key_env = "GEMINI-API-KEY"    # The env var holding your key
+
+
+[capabilities]
+tools = ["ssh_exec", "file_io"]
+

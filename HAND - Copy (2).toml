@@ -1,0 +1,36 @@
+[hand]
+id = "service-monitor2"
+name = "service_monitor_hand2"
+description = "Monitors Linux services and restarts them based on status and logs"
+category = "content"
+icon = "receipt"
+version = "1.0.0"
+
+[exec_policy]
+mode = "full"
+
+    
+
+
+[hand.agent]
+name = "service_monitor_hand2"
+description = "Monitors Linux services and restarts them based on status and logs"
+#model = "gemini-2.5-flash"
+system_prompt = "You are monitoring linux services. You restart a service if the service is failed for some reason"
+temperature = 0.1
+max_iterations = 10
+ 
+
+[model]
+provider = "gemini"
+model = "gemini-2.5-flash"
+thinking_budget = 1024
+
+[capabilities]
+# OpenFang uses the 'ssh_exec' or 'terminal' tool 
+tools = ["ssh_exec", "file_read"]
+
+[tool_config.ssh_exec]
+host = "45.76.64.17"
+user = "root"
+key_path = "C:/Users/gayat/.ssh/id_rsa"

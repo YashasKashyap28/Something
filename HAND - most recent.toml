@@ -1,0 +1,88 @@
+[hand]
+id = "service-monitor2"
+#name = "service_monitor_hand2"
+#description = "Monitors Linux services and restarts them based on status and logs"
+name = "flask-connector-agent"
+version = "0.1.0"
+description = "Sends data to my local Flask server"
+category = "content"
+icon = "receipt"
+command = 'POST http://192.168.0.105:5000/run -H "x-api-key: galigvi1234"'
+
+[skills.python_monitor]
+path = "C:/Users/gayat/scripts/monitor_service.py"
+runtime = "python"
+schedule = "*****" # Standard cron syntax
+
+[[mcp_servers]]
+host = "45.76.64.17"
+user="root"
+command = "ssh"
+args = ["user@example.com", "npx -y @modelcontextprotocol/server-everything"]
+
+[exec_policy]
+mode = "full"
+
+[skills.entrypoint]
+name = "entrypoint"
+description = "This skill helps the agent perform X task"
+path = "C:/Users/gayat/.openfang/skills/entrypoint/src/hand.py"
+enabled = true
+
+    
+
+[[hand.settings]]
+key = "confidence_threshold"
+label = "Confidence Threshold"
+type = "float"
+setting_type = "select"
+default = "0.95"
+min = 0.5
+max = 1.0
+
+[hand.agent]
+name = "service_monitor_hand2"
+description = "Monitors Linux services and restarts them based on status and logs"
+provider="mistral"
+model = "mistral-small-latest"
+system_prompt = "You are monitoring linux services. You restart a service if the service is failed for some reason"
+temperature = 0.1
+max_iterations = 10
+ 
+
+[hand.dashboard]
+
+[[hand.dashboard.metrics]]
+key = "Monitoring completed"
+label = "Monitoring Completed"
+memory_key = "Monitoring Completed"
+
+[[mcp_servers]]
+name = "ssh-manager"
+command = "openfang-mcp-ssh" # This ensures the SSH tool is injected into the toolset
+args = ["--key-path", "C:/Users/gayat/.ssh/id_rsa"]
+
+ 
+
+[tools.ssh_params]
+host = "45.76.64.17"
+user = "root"
+# Use a forward slash even on Windows for agent compatibility
+key_path = "C:/Users/gayat/.ssh/id_rsa"
+
+
+[permissions]
+allowlist = [
+    "shell_exec"
+     
+]
+
+
+
+[capabilities]
+# Add 'shell_exec' to the tools list
+tools = ["file_read", "shell_exec", "memory_recall","ssh_exec","web_fetch"]
+
+# THIS IS THE FIX: Explicitly allow the ssh command
+[capabilities.shell_access]
+allow = ["ssh *", "uptime", "systemctl list-units","shell_exec"]
